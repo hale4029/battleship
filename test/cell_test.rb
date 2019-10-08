@@ -69,8 +69,12 @@ class CellTest < Minitest::Test
     cruiser = Ship.new("Cruiser", 3)
     cell_2.place_ship(cruiser)
     cell_2.fire_upon
-    cell_2.
+    cruiser.hit
 
-    assert_equal
+    assert_equal "H", cell_2.render
+
+    cruiser.hit
+
+    assert_equal "X", cell_2.render
   end
 end
