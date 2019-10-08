@@ -40,7 +40,7 @@ class Cell
   end
 
   def fired_upon?
-    if @cell_state != "."
+    if @cell_state == "H" || @cell_state == "M"
       true
     else
       false
