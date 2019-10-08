@@ -1,6 +1,6 @@
 require 'minitest/autorun'
 require 'minitest/pride'
-require 'Users/hlevin/turing/mod_1/battleship/lib/ship'
+require './lib/ship'
 
 class ShipTest < Minitest::Test
   def setup
@@ -18,7 +18,7 @@ class ShipTest < Minitest::Test
   def test_initial_health_level
     assert_equal 3, @ship.health
   end
-  
+
   def test_if_ship_is_hit_and_health_level
     @ship.hit
     assert_equal 2, @ship.health
@@ -28,10 +28,10 @@ class ShipTest < Minitest::Test
 
   def test_if_ship_is_sunk
     @ship.hit
-    assert_equal false, @ship.health
+    assert_equal false, @ship.sunk
     @ship.hit
-    assert_equal false, @ship.health
+    assert_equal false, @ship.sunk
     @ship.hit
-    assert_equal true, @ship.health
+    assert_equal true, @ship.sunk
   end
 end
