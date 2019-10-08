@@ -26,7 +26,7 @@ class Cell
     end
   end
 
-  def fired_upon
+  def fire_upon
     if @cell_state == "."
       @cell_state = "M"
     elsif @cell_state == "S"
@@ -47,7 +47,7 @@ class Cell
     end
   end
 
-  def render(player = false)
+  def render(player = true)
     if player == true
       @cell_state
     elsif player == false && @cell_state == "S"

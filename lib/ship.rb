@@ -1,5 +1,3 @@
-
-
 class Ship
   attr_reader :name, :length
   attr_accessor :sunk, :health
