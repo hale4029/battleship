@@ -1,6 +1,7 @@
 require 'minitest/autorun'
 require 'minitest/pride'
 require './lib/cell'
+require './lib/ship'
 
 class CellTest < Minitest::Test
 
@@ -16,12 +17,10 @@ class CellTest < Minitest::Test
     assert_equal "B4", @cell.coordinate
   end
 
-  def test_cell_is_empty
+  def test_cell_is_empty_until_ship_is_placed_on_it
     assert_equal nil, @cell.ship
     assert_equal true, @cell.empty?
-  end
 
-  def test_a_ship_can_be_placed_on_cell
     cruiser = Ship.new("Cruiser", 3)
     @cell.place_ship(cruiser)
 
@@ -38,11 +37,10 @@ class CellTest < Minitest::Test
     @cell.fire_upon
 
     assert_equal 2, @cell.ship.health
-    assert_equal true, @cell.fired_opon?
+    assert_equal true, @cell.fired_upon?
   end
 
   def test_render_is_dynamic_for_miss
-
     assert_equal ".", @cell.render
 
     @cell.fire_upon
@@ -57,7 +55,6 @@ class CellTest < Minitest::Test
     assert_equal ".", cell_2.render
 
     cell_2.place_ship(cruiser)
-
     assert_equal "S", cell_2.render(true)
 
     cell_2.fire_upon
@@ -77,5 +74,6 @@ class CellTest < Minitest::Test
     cruiser.hit
 
     assert_equal "X", cell_2.render
+    require "pry"; binding.pry
   end
 end
