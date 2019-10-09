@@ -12,11 +12,7 @@ class Cell
   end
 
   def empty?
-    if @ship == nil
-      true
-    else
-      false
-    end
+    @ship == nil
   end
 
   def place_ship(ship_name)
@@ -36,15 +32,15 @@ class Cell
 
   def render(player = false)
     if player == true && @ship != nil && @fired_upon == false
-        "S"
+      "S"
     elsif @ship == nil && @fired_upon == false
-        "."
+      "."
     elsif @ship == nil && @fired_upon == true
-        "M"
+      "M"
     elsif @ship != nil && @fired_upon == true && @ship.health <= 0
-        "X"
+      "X"
     elsif @ship != nil && @fired_upon == true
-        "H"
+      "H"
     else
       "."
     end
