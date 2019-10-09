@@ -25,7 +25,7 @@ class Cell
 
   def fire_upon
     if @ship != nil
-    @ship.health -= 1
+    @ship.hit
     end
     @fired_upon = true
   end
