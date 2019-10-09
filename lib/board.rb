@@ -56,7 +56,40 @@ class Board
     end
   end
 
+  def diagonal?(ship_name, coordinates_array)
+    test_array = coordinates_array.map do |x|
+      x.delete("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
+    end
+    test = test_array.pop.to_i
+    test_1 = test_array.pop.to_i
+    if test_array.empty?
+      numbers = test - 1 == test_1
+    else
+      test_2 = test_array.pop.to_i
+      numbers = test - 1 == test_1 && test_1 - 1 == test_2
+    end
+
+    letters_array = coordinates_array.map do |x|
+      x.delete("1234567890")
+    end
+    ordinals_array = letters_array.map do |letter|
+      letter.ord
+    end
+    test = ordinals_array.pop.to_i
+    test_1 = ordinals_array.pop.to_i
+    if ordinals_array.empty?
+      letters = test - 1 == test_1
+    else
+      test_2 = ordinals_array.pop.to_i
+      letters = test - 1 == test_1 && test_1 - 1 == test_2
+    end
+    !(letters && numbers)
+
+  end
+
+
+
   def valid_placement?(ship_name, coordinates_array)
-    valid_rows(ship_name, coordinates_array) && valid_columns(ship_name, coordinates_array) && coordinates_array.length == ship_name.length
+    valid_rows(ship_name, coordinates_array) && valid_columns(ship_name, coordinates_array) && coordinates_array.length == ship_name.length && diagonal?(ship_name, coordinates_array)
   end
 end
