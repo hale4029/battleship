@@ -72,14 +72,12 @@ class BoardTest < Minitest::Test
     assert_nil nil, actual
     assert_nil nil, @board.cells["B1"].ship
 
-    #
+    #sad path -- cells aready hold a ship
     submarine = Ship.new("Submarine", 2)
     actual = @board.place(submarine, ["A1", "A2"])
 
     assert_equal "Cruiser", @board.cells["A1"].ship.name
     assert_nil nil, actual
-
-
   end
 
 end

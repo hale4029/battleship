@@ -103,7 +103,6 @@ class Board
     end
   end
 
-
   def place(ship_name, coordinates_array)
     if (valid_placement?(ship_name, coordinates_array) == true) && ship_does_not_exist_on_cell(coordinates_array) == true
       coordinates_array.each do |coord|
