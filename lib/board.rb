@@ -1,4 +1,3 @@
-
 require './lib/cell'
 require './lib/ship'
 
@@ -85,7 +84,6 @@ class Board
       letters = test - 1 == test_1 && test_1 - 1 == test_2
     end
     !(letters && numbers)
-
   end
 
   def valid_placement?(ship_name, coordinates_array)
@@ -121,6 +119,4 @@ class Board
      cell.render
 
  end
-
-
 end
