@@ -74,5 +74,6 @@ class CellTest < Minitest::Test
     cruiser.hit
 
     assert_equal "X", cell_2.render
+
   end
 end
