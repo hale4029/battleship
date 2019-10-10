@@ -84,12 +84,39 @@ class Board
       letters = test - 1 == test_1 && test_1 - 1 == test_2
     end
     !(letters && numbers)
-
   end
-
-
 
   def valid_placement?(ship_name, coordinates_array)
-    valid_rows(ship_name, coordinates_array) && valid_columns(ship_name, coordinates_array) && coordinates_array.length == ship_name.length && diagonal?(ship_name, coordinates_array)
+    valid_rows(ship_name, coordinates_array) &&
+    valid_columns(ship_name, coordinates_array) &&
+    coordinates_array.length == ship_name.length &&
+    diagonal?(ship_name, coordinates_array)
   end
+
+  def ship_does_not_exist_on_cell(coordinates_array)
+    array = coordinates_array.find_all do |coord|
+      @cells[coord].ship != nil
+    end
+    if array.empty?
+      true
+    else
+      false
+    end
+  end
+
+  def place(ship_name, coordinates_array)
+    if (valid_placement?(ship_name, coordinates_array) == true) && ship_does_not_exist_on_cell(coordinates_array) == true
+      coordinates_array.each do |coord|
+        @cells[coord].place_ship(ship_name)
+      end
+    else
+      nil
+    end
+  end
+
+ def render
+   @board.cells.each do |cell|
+     cell.render
+
+ end
 end
