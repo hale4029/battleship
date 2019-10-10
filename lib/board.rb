@@ -17,6 +17,10 @@ class Board
     @spaces.include?(coord.to_s.upcase) #if we need to revisit, change to hash potentially
   end
 
+  def duplicate_entry(ship_name, coordinates_array)
+    coordinates_array.uniq.size == coordinates_array.length
+  end
+
   def valid_numbers(ship_name, coordinates_array)
     test_array = coordinates_array.map do |x|
       x.delete("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
@@ -90,7 +94,8 @@ class Board
     valid_letters(ship_name, coordinates_array) &&
     valid_numbers(ship_name, coordinates_array) &&
     coordinates_array.length == ship_name.length &&
-    diagonal?(ship_name, coordinates_array)
+    diagonal?(ship_name, coordinates_array) &&
+    duplicate_entry(ship_name, coordinates_array)
   end
 
   def ship_does_not_exist_on_cell(coordinates_array)
@@ -114,9 +119,28 @@ class Board
     end
   end
 
- def render
-   @board.cells.each do |cell|
-     cell.render
-   end 
+ def render(player = false)
+   if player == false
+     render_array = @cells.values.map do |cell|
+       cell.render
+    end
+    x = (1..4).to_a
+    flat_array = render_array.unshift(x).flatten
+    array_2 = flat_array.each_slice(4).to_a.map { |slice| slice << "\n"}
+    array = [[" "], ["A"], ["B"], ["C"], ["D"]]
+    output = array.map { |slice| slice << array_2.shift }.flatten.join
+    output
+   else
+     render_array = @cells.values.map do |cell|
+       cell.render(true)
+    end
+    x = (1..4).to_a
+    flat_array = render_array.unshift(x).flatten
+    array_2 = flat_array.each_slice(4).to_a.map { |slice| slice << "\n"}
+    array = [[" "], ["A"], ["B"], ["C"], ["D"]]
+    output = array.map { |slice| slice << array_2.shift }.flatten.join
+    output
+   end
  end
+
 end
