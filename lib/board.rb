@@ -84,7 +84,6 @@ class Board
       letters = test - 1 == test_1 && test_1 - 1 == test_2
     end
     !(letters && numbers)
-
   end
 
 
