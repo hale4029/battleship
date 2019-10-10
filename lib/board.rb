@@ -17,7 +17,7 @@ class Board
     @spaces.include?(coord.to_s.upcase) #if we need to revisit, change to hash potentially
   end
 
-  def valid_columns(ship_name, coordinates_array)
+  def valid_numbers(ship_name, coordinates_array)
     test_array = coordinates_array.map do |x|
       x.delete("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
     end
@@ -35,7 +35,7 @@ class Board
     end
   end
 
-  def valid_rows(ship_name, coordinates_array)
+  def valid_letters(ship_name, coordinates_array)
     test_array = coordinates_array.map do |x|
       x.delete("1234567890")
     end
@@ -86,9 +86,37 @@ class Board
     !(letters && numbers)
   end
 
-
-
   def valid_placement?(ship_name, coordinates_array)
-    valid_rows(ship_name, coordinates_array) && valid_columns(ship_name, coordinates_array) && coordinates_array.length == ship_name.length && diagonal?(ship_name, coordinates_array)
+    valid_letters(ship_name, coordinates_array) &&
+    valid_numbers(ship_name, coordinates_array) &&
+    coordinates_array.length == ship_name.length &&
+    diagonal?(ship_name, coordinates_array)
   end
+
+  def ship_does_not_exist_on_cell(coordinates_array)
+    array = coordinates_array.find_all do |coord|
+      @cells[coord].ship != nil
+    end
+    if array.empty?
+      true
+    else
+      false
+    end
+  end
+
+  def place(ship_name, coordinates_array)
+    if (valid_placement?(ship_name, coordinates_array) == true) && ship_does_not_exist_on_cell(coordinates_array) == true
+      coordinates_array.each do |coord|
+        @cells[coord].place_ship(ship_name)
+      end
+    else
+      nil
+    end
+  end
+
+ def render
+   @board.cells.each do |cell|
+     cell.render
+   end 
+ end
 end

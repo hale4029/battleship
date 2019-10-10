@@ -27,7 +27,7 @@ class Cell
     if @ship != nil
     @ship.hit
     end
-    @fired_upon = true
+    @fired_upon = true 
   end
 
   def render(player = false)
