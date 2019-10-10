@@ -89,7 +89,10 @@ class Board
   end
 
   def valid_placement?(ship_name, coordinates_array)
-    valid_rows(ship_name, coordinates_array) && valid_columns(ship_name, coordinates_array) && coordinates_array.length == ship_name.length && diagonal?(ship_name, coordinates_array)
+    valid_rows(ship_name, coordinates_array) &&
+    valid_columns(ship_name, coordinates_array) &&
+    coordinates_array.length == ship_name.length &&
+    diagonal?(ship_name, coordinates_array)
   end
 
   def ship_does_not_exist_on_cell(coordinates_array)
@@ -112,5 +115,12 @@ class Board
       nil
     end
   end
+
+ def render
+   @board.cells.each do |cell|
+     cell.render
+
+ end
+
 
 end
