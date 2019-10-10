@@ -28,14 +28,14 @@ class BoardTest < Minitest::Test
     assert_equal false, @board.valid_coordinate?(1)
   end
 
-  def test_if_row_placement_is_valid
+  def test_if_letters_are_valid
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
 
-    assert_equal true, @board.valid_rows(cruiser, ["A3", "A4"])
-    assert_equal true, @board.valid_rows(submarine, ["A2", "B3", "C4"])
-    assert_equal false, @board.valid_rows(submarine, ["A2", "B3", "A4"])
-    assert_equal false, @board.valid_rows(submarine, ["A2", "B3", "D4"])
+    assert_equal true, @board.valid_letters(cruiser, ["A3", "A4"])
+    assert_equal true, @board.valid_letters(submarine, ["A2", "B3", "C4"])
+    assert_equal false, @board.valid_letters(submarine, ["A2", "B3", "A4"])
+    assert_equal false, @board.valid_letters(submarine, ["A2", "B3", "D4"])
   end
 
   def test_if_ship_placement_is_valid
