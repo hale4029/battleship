@@ -122,22 +122,22 @@ class Board
  def render(player = false)
    if player == false
      render_array = @cells.values.map do |cell|
-       cell.render
+       cell.render + " "
     end
-    x = (1..4).to_a
+    x = ["1 ", "2 ", "3 ", "4 "]
     flat_array = render_array.unshift(x).flatten
     array_2 = flat_array.each_slice(4).to_a.map { |slice| slice << "\n"}
-    array = [[" "], ["A"], ["B"], ["C"], ["D"]]
+    array = [["  "], ["A "], ["B "], ["C "], ["D "]]
     output = array.map { |slice| slice << array_2.shift }.flatten.join
     output
    else
      render_array = @cells.values.map do |cell|
-       cell.render(true)
+       cell.render(true) + " "
     end
-    x = (1..4).to_a
+    x = ["1 ", "2 ", "3 ", "4 "]
     flat_array = render_array.unshift(x).flatten
     array_2 = flat_array.each_slice(4).to_a.map { |slice| slice << "\n"}
-    array = [[" "], ["A"], ["B"], ["C"], ["D"]]
+    array = [["  "], ["A "], ["B "], ["C "], ["D "]]
     output = array.map { |slice| slice << array_2.shift }.flatten.join
     output
    end
