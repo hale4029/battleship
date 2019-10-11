@@ -103,22 +103,21 @@ class BoardTest < Minitest::Test
   def test_board_renders_for_computer
     cruiser = Ship.new("Cruiser", 3)
     @board.place(cruiser, ["A1", "A2", "A3"])
-
-    assert_equal "  1 2 3 4 \n" +
+    assert_equal ("  1 2 3 4 \n" +
     "A . . . . \n" +
     "B . . . . \n" +
     "C . . . . \n" +
-    "D . . . . \n" +, @board.render
-  end
+    "D . . . . \n"), @board.render
+   end
 
   def test_board_renders_for_player
     cruiser = Ship.new("Cruiser", 3)
     @board.place(cruiser, ["A1", "A2", "A3"])
 
-    assert_equal "  1 2 3 4 \n" +
+    assert_equal ("  1 2 3 4 \n" +
     "A S S S . \n" +
     "B . . . . \n" +
     "C . . . . \n" +
-    "D . . . . \n" +, @board.render(true)
+    "D . . . . \n"),  @board.render(true)
   end
 end
