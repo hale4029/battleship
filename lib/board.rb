@@ -2,14 +2,19 @@ require './lib/cell'
 require './lib/ship'
 
 class Board
-  attr_reader :cells
+  attr_reader :cells, :dimensions
 
-  def initialize
-    @spaces = ["A1", "A2", "A3", "A4", "B1", "B2", "B3", "B4", "C1", "C2", "C3", "C4", "D1", "D2", "D3", "D4"]
+  def initialize(dimensions = 4)
+    @dimensions = dimensions
+    letters = (65..(65 + (dimensions - 1))).to_a.map { |ord| ord.chr}
+    letters = (letters * dimensions).sort
+    numbers = (1..(1 + (dimensions - 1))).to_a
+    numbers = numbers * dimensions
+    hash = {}
+    letters.each { |letter| hash[letter] = numbers }
+    @spaces = numbers.map { |x| "#{letters.shift}#{x}"  }
     @cells = {}
-    @spaces.each do |space|
-      @cells[space] = Cell.new(space)
-    end
+    @spaces.each { |space| @cells[space] = Cell.new(space) }
     @cells
   end
 
@@ -17,8 +22,8 @@ class Board
     horizontal = coordinates_array.map { |x| x.delete("ABCDEFGHIJKLMNOPQRSTUVWXYZ").to_i }
     vertical = coordinates_array.map { |coordinate| coordinate.delete("1234567890") }
     vertical = vertical.map! { |letter| letter.ord }
-    ((1..4).each_cons(ship_name.length).to_a.include?(horizontal) && vertical.uniq.length == 1) ||
-    ((65..68).each_cons(ship_name.length).to_a.include?(vertical) && horizontal.uniq.length == 1)
+    ((1..(1 + (@dimensions - 1))).each_cons(ship_name.length).to_a.include?(horizontal) && vertical.uniq.length == 1) ||
+    ((65..(65 + (@dimensions - 1))).each_cons(ship_name.length).to_a.include?(vertical) && horizontal.uniq.length == 1)
   end
 
   def ship_does_not_exist_on_cell(coordinates_array)
