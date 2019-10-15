@@ -58,6 +58,7 @@ class Game
         @computer = ComputerBoard.new
         @computer.place_cruiser
         @computer.place_submarine
+        @computer_available_shots = @computer.computer_board.cells.keys
         @player_board = Board.new
         show_boards
         puts "You will need to lay out your ships on the board"
@@ -70,17 +71,36 @@ class Game
       end
   end
 
+  def computer_shot
+    @comp_shot = @computer_available_shots.sample
+    @computer_available_shots.delete(@comp_shot)
+    @player_board.cells[@comp_shot].fire_upon
+  end
+
   def take_turn
     show_boards
     puts "What coordinate would you like to fire on?"
     print ">"
     shot_coordinate = gets.chomp.upcase
     shot_coordinate_validation(shot_coordinate)
-
+    computer_shot
+    # computer_open_shots = @computer.computer_board.cells.keys
+    # computer_shot = computer_open_shots.sample
+    # computer_open_shots.delete(computer_shot)
+    shot_feedback(@computer.computer_board, shot_coordinate, "Your")
+    shot_feedback(@player_board, @comp_shot, "The computer's")
   end
 
-  def shot_feedback
-    
+  def shot_feedback(board, shot_coordinate, player)
+    if board.cells[shot_coordinate].render == "M"
+      shot = "miss"
+    elsif board.cells[shot_coordinate].render == "H"
+      shot = "hit"
+    elsif board.cells[shot_coordinate].render == "X"
+      puts "#{player} shot on #{shot_coordinate} sunk the #{board.cells[shot_coordinate].ship.name}."
+      return
+    end
+    puts "#{player} shot on #{shot_coordinate} was a #{shot}."
   end
 
   def shot_coordinate_validation(shot)
@@ -91,14 +111,6 @@ class Game
       print ">"
       shot_coordinate = gets.chomp.upcase
       shot_coordinate_validation(shot_coordinate)
-    end
-  end
-
-  def end_game?
-    if @player_cruiser.health + @player_sub.health == 0 || @computer.cruiser.health + @computer.submarine.health == 0
-      puts "Game Over!"
-    else
-      take_turn
     end
   end
 end
