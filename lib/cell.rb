@@ -7,7 +7,6 @@ class Cell
   def initialize(coordinate)
     @coordinate = coordinate
     @ship = nil
-    # @empty = true # may not need this (if ship = nil, empty is implied, if ship = nil && fired_upon = true, render should be "M")
     @fired_upon = false
   end
 
@@ -27,7 +26,7 @@ class Cell
     if @ship != nil
     @ship.hit
     end
-    @fired_upon = true 
+    @fired_upon = true
   end
 
   def render(player = false)
