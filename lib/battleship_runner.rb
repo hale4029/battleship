@@ -7,3 +7,5 @@ require './lib/ship'
 game = Game.new
 
 game.start_game
+until game.
+game.take_turn
