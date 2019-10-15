@@ -4,8 +4,12 @@ require './lib/ship'
 class Board
   attr_reader :cells, :dimensions
 
-  def initialize(dimensions = 10)
+  def initialize(dimensions = 4)
     @dimensions = dimensions
+    @cells = {}
+  end
+
+  def create_cells
     letters = (65..(65 + (@dimensions - 1))).to_a.map { |ord| ord.chr}
     letters = (letters * @dimensions).sort
     numbers = (1..(1 + (@dimensions - 1))).to_a

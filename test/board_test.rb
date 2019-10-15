@@ -8,6 +8,7 @@ class BoardTest < Minitest::Test
 
   def setup
     @board = Board.new
+    @board.create_cells
   end
 
   def test_it_exists
@@ -15,7 +16,7 @@ class BoardTest < Minitest::Test
   end
 
   def test_board_has_16_cells
-    assert_equal 100, @board.cells.length
+    assert_equal 16, @board.cells.length
     assert_instance_of Cell, @board.cells["A1"]
     assert_instance_of Hash, @board.cells
   end

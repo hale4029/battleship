@@ -3,12 +3,13 @@ require 'minitest/pride'
 require './lib/cell'
 require './lib/ship'
 require './lib/board'
-require './lib/computer'
+require './lib/computer_board'
 
 class ComputerBoardTest < Minitest::Test
 
   def setup
     @computer = ComputerBoard.new
+    @computer.computer_board.create_cells
   end
 
   def test_it_exists
@@ -16,15 +17,9 @@ class ComputerBoardTest < Minitest::Test
   end
 
   def test_placement_of_ships
-    @computer.place_cruiser
-
-    print @computer.computer_board.cells.values.include?(ship)
-    # print @computer.computer_board.render
-    # print @computer.computer_board.render(true)
-
-    #@computer.place_submarine
-
-    #assert_equal
+    @computer.place_ships
+    require "pry"; binding.pry
+    
   end
 
 end
