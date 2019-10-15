@@ -18,8 +18,8 @@ class ComputerBoardTest < Minitest::Test
 
   def test_placement_of_ships
     @computer.place_ships
-    require "pry"; binding.pry
-    
+    print @computer.computer_board.render(true)
+
   end
 
 end
