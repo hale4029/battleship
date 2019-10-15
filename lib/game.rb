@@ -8,7 +8,8 @@ class Game
               :input,
               :player_cruiser,
               :player_sub,
-              :
+              :computer
+
 
   def main_menu
     puts "Welcome to BATTLESHIP"
@@ -70,11 +71,15 @@ class Game
   end
 
   def take_turn
-    # until @player_cruiser.health + @player_sub.health == 0 || @computer.cruiser.health + @computer.submarine.health == 0
+    show_boards
     puts "What coordinate would you like to fire on?"
     print ">"
     shot_coordinate = gets.chomp.upcase
     shot_coordinate_validation(shot_coordinate)
+
+  end
+
+  def shot_feedback
     
   end
 
@@ -83,6 +88,9 @@ class Game
       @computer.computer_board.cells[shot].fire_upon
     else
       puts "Please input a valid coordinate."
+      print ">"
+      shot_coordinate = gets.chomp.upcase
+      shot_coordinate_validation(shot_coordinate)
     end
   end
 
