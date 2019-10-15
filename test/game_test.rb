@@ -18,10 +18,10 @@ class GameTest < Minitest::Test
   end
 
   def test_game_initializes_with_menu
-    assert_equal "Welcome to BATTLESHIP", @game.main_menu
+    assert_equal , @game.main_menu
   end
 
   def test_game_asks_user_to_place_ships_if_they_enter_p_on_main_menu
-    
+
   end
 end

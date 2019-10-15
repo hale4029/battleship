@@ -22,7 +22,7 @@ class Game
     @player_cruiser = Ship.new("Cruiser", 3)
     puts "Enter the spaces for the cruiser (ex: A1 A2 A3)"
     print ">"
-    cruiser_placement = gets.chomp.upcase.split(" ")
+    cruiser_placement = gets.chomp.gsub(/\s+/, "").scan(/../)
     if @player_board.place(@player_cruiser, cruiser_placement) == nil
       puts "Invalid coordinates. Please try again."
       place_cruiser
@@ -35,7 +35,7 @@ class Game
     @player_sub = Ship.new("Submarine", 2)
     puts "Enter the spaces for the submarine (ex: C1 D1)"
     print ">"
-    submarine_placement = gets.chomp.upcase.split(" ")
+    submarine_placement = gets.chomp.gsub(/\s+/, "").scan(/../)
     if @player_board.place(@player_sub, submarine_placement) == nil
       puts "Invalid coordinates. Please try again."
       place_submarine
@@ -77,17 +77,18 @@ class Game
     @player_board.cells[@comp_shot].fire_upon
   end
 
+  def get_shot_input_from_user
+    @shot_coordinate = gets.chomp.gsub(/\s+/, "").upcase
+  end
+
   def take_turn
     show_boards
     puts "What coordinate would you like to fire on?"
     print ">"
-    shot_coordinate = gets.chomp.upcase
-    shot_coordinate_validation(shot_coordinate)
+    get_shot_input_from_user
+    shot_coordinate_validation(@shot_coordinate)
     computer_shot
-    # computer_open_shots = @computer.computer_board.cells.keys
-    # computer_shot = computer_open_shots.sample
-    # computer_open_shots.delete(computer_shot)
-    shot_feedback(@computer.computer_board, shot_coordinate, "Your")
+    shot_feedback(@computer.computer_board, @shot_coordinate, "Your")
     shot_feedback(@player_board, @comp_shot, "The computer's")
   end
 
@@ -109,8 +110,8 @@ class Game
     else
       puts "Please input a valid coordinate."
       print ">"
-      shot_coordinate = gets.chomp.upcase
-      shot_coordinate_validation(shot_coordinate)
+      get_shot_input_from_user
+      shot_coordinate_validation(@shot_coordinate)
     end
   end
 end
