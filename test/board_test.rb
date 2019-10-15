@@ -20,42 +20,6 @@ class BoardTest < Minitest::Test
     assert_instance_of Hash, @board.cells
   end
 
-  def test_if_coordinate_is_valid
-    assert_equal true, @board.valid_coordinate?("A1")
-    assert_equal false, @board.valid_coordinate?("D5")
-    assert_equal false, @board.valid_coordinate?("A 1")
-    assert_equal false, @board.valid_coordinate?("A22")
-    assert_equal false, @board.valid_coordinate?(1)
-  end
-
-  def test_if_letters_are_consecutive_or_same
-    cruiser = Ship.new("Cruiser", 3)
-    submarine = Ship.new("Submarine", 2)
-
-    assert_equal true, @board.valid_letters(cruiser, ["A3", "A4"])
-    assert_equal true, @board.valid_letters(submarine, ["A2", "B3", "C4"])
-    assert_equal false, @board.valid_letters(cruiser, ["A2", "B3", "A4"])
-    assert_equal false, @board.valid_letters(cruiser, ["A2", "B3", "D4"])
-    assert_equal false, @board.valid_letters(submarine, [])
-    assert_equal true, @board.valid_letters(submarine, ["E5", "F17"])
-    assert_equal true, @board.valid_letters(cruiser, ["B2", "C2", "D2"])
-    assert_equal false, @board.valid_letters(cruiser, ["B2", "C2", "D2", "D2", "A4"])
-  end
-
-  def test_if_numbers_are_consecutive_or_same
-    cruiser = Ship.new("Cruiser", 3)
-    submarine = Ship.new("Submarine", 2)
-
-    assert_equal true, @board.valid_numbers(cruiser, ["A3", "A4"])
-    assert_equal true, @board.valid_numbers(submarine, ["A2", "B3", "C4"])
-    assert_equal true, @board.valid_numbers(cruiser, ["A2", "B3", "A4"])
-    assert_equal true, @board.valid_numbers(cruiser, ["A2", "B3", "D4"])
-    assert_equal false, @board.valid_numbers(submarine, [])
-    assert_equal false, @board.valid_numbers(submarine, ["E5", "F17"])
-    assert_equal true, @board.valid_numbers(cruiser, ["B2", "C2", "D2"])
-    assert_equal false, @board.valid_numbers(cruiser, ["B2", "C2", "D2", "D2", "A4"])
-  end
-
   def test_valid_placement
     cruiser = Ship.new("Cruiser", 3)
     submarine = Ship.new("Submarine", 2)
@@ -108,7 +72,7 @@ class BoardTest < Minitest::Test
     "B . . . . \n" +
     "C . . . . \n" +
     "D . . . . \n"), @board.render
-   end
+  end
 
   def test_board_renders_for_player
     cruiser = Ship.new("Cruiser", 3)

@@ -13,100 +13,16 @@ class Board
     @cells
   end
 
-  def valid_coordinate?(coord)
-    @spaces.include?(coord.to_s.upcase) #if we need to revisit, change to hash potentially
-  end
-
-  def duplicate_entry(ship_name, coordinates_array)
-    coordinates_array.uniq.size == coordinates_array.length
-  end
-
-  def valid_numbers(ship_name, coordinates_array)
-    test_array = coordinates_array.map do |x|
-      x.delete("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-    end
-    if test_array.uniq.size == 1 #checks if numerical portion of cell is same
-      true
-    elsif # if not, are the numbers consecutive
-      test = test_array.pop.to_i
-      test_1 = test_array.pop.to_i
-      if test_array.empty?
-        test - 1 == test_1
-      else
-        test_2 = test_array.pop.to_i
-        test - 1 == test_1 && test_1 - 1 == test_2
-      end
-    end
-  end
-
-  def valid_letters(ship_name, coordinates_array)
-    test_array = coordinates_array.map do |x|
-      x.delete("1234567890")
-    end
-    ordinals_array = test_array.map do |letter|
-      letter.ord
-    end
-    if ordinals_array.uniq.size == 1
-      true
-    elsif
-      test = ordinals_array.pop.to_i
-      test_1 = ordinals_array.pop.to_i
-      if ordinals_array.empty?
-        test - 1 == test_1
-      else
-        test_2 = ordinals_array.pop.to_i
-        test - 1 == test_1 && test_1 - 1 == test_2
-      end
-    end
-  end
-
-  def diagonal?(ship_name, coordinates_array)
-    test_array = coordinates_array.map do |x|
-      x.delete("ABCDEFGHIJKLMNOPQRSTUVWXYZ")
-    end
-    test = test_array.pop.to_i
-    test_1 = test_array.pop.to_i
-    if test_array.empty?
-      numbers = test - 1 == test_1
-    else
-      test_2 = test_array.pop.to_i
-      numbers = test - 1 == test_1 && test_1 - 1 == test_2
-    end
-
-    letters_array = coordinates_array.map do |x|
-      x.delete("1234567890")
-    end
-    ordinals_array = letters_array.map do |letter|
-      letter.ord
-    end
-    test = ordinals_array.pop.to_i
-    test_1 = ordinals_array.pop.to_i
-    if ordinals_array.empty?
-      letters = test - 1 == test_1
-    else
-      test_2 = ordinals_array.pop.to_i
-      letters = test - 1 == test_1 && test_1 - 1 == test_2
-    end
-    !(letters && numbers)
-  end
-
   def valid_placement?(ship_name, coordinates_array)
-    valid_letters(ship_name, coordinates_array) &&
-    valid_numbers(ship_name, coordinates_array) &&
-    coordinates_array.length == ship_name.length &&
-    diagonal?(ship_name, coordinates_array) &&
-    duplicate_entry(ship_name, coordinates_array)
+    horizontal = coordinates_array.map { |x| x.delete("ABCDEFGHIJKLMNOPQRSTUVWXYZ").to_i }
+    vertical = coordinates_array.map { |coordinate| coordinate.delete("1234567890") }
+    vertical = vertical.map! { |letter| letter.ord }
+    ((1..4).each_cons(ship_name.length).to_a.include?(horizontal) && vertical.uniq.length == 1) ||
+    ((65..68).each_cons(ship_name.length).to_a.include?(vertical) && horizontal.uniq.length == 1)
   end
 
   def ship_does_not_exist_on_cell(coordinates_array)
-    array = coordinates_array.find_all do |coord|
-      @cells[coord].ship != nil
-    end
-    if array.empty?
-      true
-    else
-      false
-    end
+    coordinates_array.all? { |coord| @cells[coord].ship == nil }
   end
 
   def place(ship_name, coordinates_array)
