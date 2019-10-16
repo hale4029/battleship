@@ -15,10 +15,18 @@ class BoardTest < Minitest::Test
     assert_instance_of Board, @board
   end
 
-  def test_board_has_16_cells
+  def test_board_default_and_dynamic_function
     assert_equal 16, @board.cells.length
     assert_instance_of Cell, @board.cells["A1"]
+    assert_nil nil, @board.cells["A10"]
     assert_instance_of Hash, @board.cells
+
+    board_2 = Board.new(10)
+    board_2.create_cells
+    assert_equal 100, board_2.cells.length
+    assert_instance_of Cell, board_2.cells["A10"]
+    assert_nil nil, board_2.cells["A100"]
+    assert_instance_of Hash, board_2.cells
   end
 
   def test_valid_placement
