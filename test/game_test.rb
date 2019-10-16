@@ -10,7 +10,6 @@ class GameTest < Minitest::Test
   def setup
     @board = Board.new
     @game = Game.new
-    require "pry"; binding.pry
   end
 
   def test_game_exists

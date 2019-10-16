@@ -39,7 +39,6 @@ class Game
 
   def place_cruiser
     @player_cruiser = Ship.new("Cruiser", 3)
-    require "pry"; binding.pry
     puts "Enter the spaces for the cruiser (ex: A1 A2 A3)"
     print ">"
     player_place_ship(@player_cruiser)
