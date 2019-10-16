@@ -119,10 +119,11 @@ class Game
   end
 
   def game_end
-    if @player_sub.health + @player_cruiser.health == 0
-      puts "The computer wins :(."
-    elsif @computer.submarine.health + @computer.cruiser.health == 0
+    if @computer.submarine.health + @computer.cruiser.health == 0
       puts "You won!"
+    elsif @player_sub.health + @player_cruiser.health == 0
+      puts "The computer wins :(."
     end
+    main_menu
   end
 end
