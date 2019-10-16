@@ -15,7 +15,15 @@ class Game
     puts "Welcome to BATTLESHIP"
     puts "To start a new game, enter 'p'. To quit game, enter 'q'."
     print ">"
-    @input = gets.chomp.downcase
+    input = gets.chomp.downcase
+    if input == "p"
+      start_game
+    elsif input == "q"
+      puts "Ok, goodbye."
+    else
+      puts "Invalid menu input."
+      main_menu
+    end
   end
 
   def place_cruiser
@@ -46,29 +54,24 @@ class Game
 
   def show_boards
     puts "Computer's Board"
-    print @computer.computer_board.render(true)
+    print @computer.computer_board.render
     puts "=========="
     puts "Your Board"
     print @player_board.render(true)
   end
 
   def start_game
-      main_menu
-      if @input = "p"
-        @computer = ComputerBoard.new
-        @computer.place_cruiser
-        @computer.place_submarine
-        @computer_available_shots = @computer.computer_board.cells.keys
-        @player_board = Board.new
-        show_boards
-        puts "You will need to lay out your ships on the board"
-        puts "The cruiser is 3 units long and the submarine is 2 units long."
-        place_cruiser
-        show_boards
-        place_submarine
-      else
-        puts "Goodbye!"
-      end
+      @computer = ComputerBoard.new
+      @computer.place_cruiser
+      @computer.place_submarine
+      @computer_available_shots = @computer.computer_board.cells.keys
+      @player_board = Board.new
+      show_boards
+      puts "You will need to lay out your ships on the board"
+      puts "The cruiser is 3 units long and the submarine is 2 units long."
+      place_cruiser
+      show_boards
+      place_submarine
   end
 
   def computer_shot
