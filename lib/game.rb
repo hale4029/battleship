@@ -75,7 +75,7 @@ class Game
       puts "Enter board length/width figure (4<x<10):"
       dimensions = gets.chomp.to_i
       if (dimensions > 4 && dimensions < 10) == false
-        puts "Incorrect input or board too small. Try again."
+        puts "Incorrect input or board too big/small. Try again."
         start_game
       end
       @computer = ComputerBoard.new(dimensions)
