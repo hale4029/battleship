@@ -43,13 +43,6 @@ class Game
     puts "Enter the spaces for the cruiser (ex: A1 A2 A3)"
     print ">"
     player_place_ship(@player_cruiser)
-    # cruiser_placement = gets.chomp.gsub(/\s+/, "").upcase.scan(/../)
-    # if @player_board.place(@player_cruiser, cruiser_placement) == nil
-    #   puts "Invalid coordinates. Please try again."
-    #   place_cruiser
-    # else
-    #   @player_board.place(@player_cruiser, cruiser_placement)
-    # end
   end
 
   def place_submarine
@@ -57,13 +50,6 @@ class Game
     puts "Enter the spaces for the submarine (ex: C1 D1)"
     print ">"
     player_place_ship(@player_sub)
-    # submarine_placement = gets.chomp.gsub(/\s+/, "").upcase.scan(/../)
-    # if @player_board.place(@player_sub, submarine_placement) == nil
-    #   puts "Invalid coordinates. Please try again."
-    #   place_submarine
-    # else
-    #   @player_board.place(@player_sub, submarine_placement)
-    # end
   end
 
   def show_boards
