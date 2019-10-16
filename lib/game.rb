@@ -20,21 +20,32 @@ class Game
       start_game
     elsif input == "q"
       puts "Ok, goodbye."
+      exit
     else
       puts "Invalid menu input."
       main_menu
     end
   end
 
+  def validate_user_input(input)
+    first_character = input.map {|coord| coord[0]}.join
+    first_character.match(/\A[a-zA-Z]*\z/).nil?
+  end
+
   def player_place_ship(ship)
     placement = gets.chomp.gsub(/\s+/, "").upcase.scan(/../)
-    require "pry"; binding.pry
-    if @player_board.place(ship, placement) == nil
-      puts "Invalid coordinates. Reminder: a #{ship.name} must be placed using #{ship.length} valid coordinates."
+    if validate_user_input(placement) == true
+      puts "Invalid input (try inputing valid coordinates instead of rolling your face on the keyboard)."
       print ">"
       player_place_ship(ship)
     else
-      @player_board.place(ship, placement)
+      if @player_board.place(ship, placement) == nil
+        puts "Invalid coordinates. Reminder: a #{ship.name} must be placed using #{ship.length} valid coordinates."
+        print ">"
+        player_place_ship(ship)
+      else
+        @player_board.place(ship, placement)
+      end
     end
   end
 
@@ -125,6 +136,5 @@ class Game
       puts ":( :( :( The computer wins. :( :( :("
     end
     puts "Returning to main menu..."
-    main_menu
   end
 end
