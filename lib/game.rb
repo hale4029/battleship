@@ -72,10 +72,16 @@ class Game
   end
 
   def start_game
-      @computer = ComputerBoard.new
+      puts "Enter board length/width figure (4<x<10):"
+      dimensions = gets.chomp.to_i
+      if (dimensions > 4 && dimensions < 10) == false
+        puts "Incorrect input or board too small. Try again."
+        start_game
+      end
+      @computer = ComputerBoard.new(dimensions)
       @computer.place_ships
       @computer_available_shots = @computer.computer_board.cells.keys
-      @player_board = Board.new
+      @player_board = Board.new(dimensions)
       @player_board.create_cells
       show_boards
       puts "You will need to lay out your ships on the board"
