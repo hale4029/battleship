@@ -8,6 +8,7 @@ class BoardTest < Minitest::Test
 
   def setup
     @board = Board.new
+    @board.create_cells
   end
 
   def test_it_exists

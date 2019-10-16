@@ -61,10 +61,10 @@ class Game
 
   def start_game
       @computer = ComputerBoard.new
-      @computer.place_cruiser
-      @computer.place_submarine
+      @computer.place_ships
       @computer_available_shots = @computer.computer_board.cells.keys
       @player_board = Board.new
+      @player_board.create_cells
       show_boards
       puts "You will need to lay out your ships on the board"
       puts "The cruiser is 3 units long and the submarine is 2 units long."
