@@ -6,8 +6,9 @@ require './lib/ship'
 
 game = Game.new
 
-game.start_game
+game.main_menu
 until (game.player_cruiser.health + game.player_sub.health == 0) || (game.computer.cruiser.health + game.computer.submarine.health == 0)
 game.take_turn
 end
+game.show_boards
 puts "Game Over."
