@@ -26,30 +26,44 @@ class Game
     end
   end
 
+  def player_place_ship(ship)
+    placement = gets.chomp.gsub(/\s+/, "").upcase.scan(/../)
+    if @player_board.place(ship, placement) == nil
+      puts "Invalid coordinates. Reminder: a #{ship.name} must be placed using #{ship.length} valid coordinates."
+      print ">"
+      player_place_ship(ship)
+    else
+      @player_board.place(ship, placement)
+    end
+  end
+
   def place_cruiser
     @player_cruiser = Ship.new("Cruiser", 3)
+    require "pry"; binding.pry
     puts "Enter the spaces for the cruiser (ex: A1 A2 A3)"
     print ">"
-    cruiser_placement = gets.chomp.gsub(/\s+/, "").upcase.scan(/../)
-    if @player_board.place(@player_cruiser, cruiser_placement) == nil
-      puts "Invalid coordinates. Please try again."
-      place_cruiser
-    else
-      @player_board.place(@player_cruiser, cruiser_placement)
-    end
+    player_place_ship(@player_cruiser)
+    # cruiser_placement = gets.chomp.gsub(/\s+/, "").upcase.scan(/../)
+    # if @player_board.place(@player_cruiser, cruiser_placement) == nil
+    #   puts "Invalid coordinates. Please try again."
+    #   place_cruiser
+    # else
+    #   @player_board.place(@player_cruiser, cruiser_placement)
+    # end
   end
 
   def place_submarine
     @player_sub = Ship.new("Submarine", 2)
     puts "Enter the spaces for the submarine (ex: C1 D1)"
     print ">"
-    submarine_placement = gets.chomp.gsub(/\s+/, "").upcase.scan(/../)
-    if @player_board.place(@player_sub, submarine_placement) == nil
-      puts "Invalid coordinates. Please try again."
-      place_submarine
-    else
-      @player_board.place(@player_sub, submarine_placement)
-    end
+    player_place_ship(@player_sub)
+    # submarine_placement = gets.chomp.gsub(/\s+/, "").upcase.scan(/../)
+    # if @player_board.place(@player_sub, submarine_placement) == nil
+    #   puts "Invalid coordinates. Please try again."
+    #   place_submarine
+    # else
+    #   @player_board.place(@player_sub, submarine_placement)
+    # end
   end
 
   def show_boards
@@ -120,10 +134,11 @@ class Game
 
   def game_end
     if @computer.submarine.health + @computer.cruiser.health == 0
-      puts "You won!"
+      puts "~~~~You won!~~~~"
     elsif @player_sub.health + @player_cruiser.health == 0
-      puts "The computer wins :(."
+      puts ":( :( :( The computer wins. :( :( :("
     end
+    puts "Returning to main menu..."
     main_menu
   end
 end
