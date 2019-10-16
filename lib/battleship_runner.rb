@@ -11,4 +11,4 @@ until (game.player_cruiser.health + game.player_sub.health == 0) || (game.comput
 game.take_turn
 end
 game.show_boards
-puts "Game Over."
+game.game_end
