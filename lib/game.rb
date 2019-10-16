@@ -28,6 +28,7 @@ class Game
 
   def player_place_ship(ship)
     placement = gets.chomp.gsub(/\s+/, "").upcase.scan(/../)
+    require "pry"; binding.pry
     if @player_board.place(ship, placement) == nil
       puts "Invalid coordinates. Reminder: a #{ship.name} must be placed using #{ship.length} valid coordinates."
       print ">"
