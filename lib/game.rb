@@ -30,7 +30,7 @@ class Game
     @player_cruiser = Ship.new("Cruiser", 3)
     puts "Enter the spaces for the cruiser (ex: A1 A2 A3)"
     print ">"
-    cruiser_placement = gets.chomp.gsub(/\s+/, "").scan(/../)
+    cruiser_placement = gets.chomp.gsub(/\s+/, "").upcase.scan(/../)
     if @player_board.place(@player_cruiser, cruiser_placement) == nil
       puts "Invalid coordinates. Please try again."
       place_cruiser
@@ -43,7 +43,7 @@ class Game
     @player_sub = Ship.new("Submarine", 2)
     puts "Enter the spaces for the submarine (ex: C1 D1)"
     print ">"
-    submarine_placement = gets.chomp.gsub(/\s+/, "").scan(/../)
+    submarine_placement = gets.chomp.gsub(/\s+/, "").upcase.scan(/../)
     if @player_board.place(@player_sub, submarine_placement) == nil
       puts "Invalid coordinates. Please try again."
       place_submarine
@@ -115,6 +115,14 @@ class Game
       print ">"
       get_shot_input_from_user
       shot_coordinate_validation(@shot_coordinate)
+    end
+  end
+
+  def game_end
+    if @player_sub.health + @player_cruiser.health == 0
+      puts "The computer wins :(."
+    elsif @computer.submarine.health + @computer.cruiser.health == 0
+      puts "You won!"
     end
   end
 end
